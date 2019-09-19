@@ -3,6 +3,7 @@
 import argparse
 import sys
 import time
+import math
 
 import Adafruit_DHT as dht
 
@@ -11,7 +12,7 @@ from prometheus_client import start_http_server
 
 
 def calculate_absolute_humidity(_relative_humidity, _temperature):
-    return (6.112 * ((17.67 * _temperature) / (_temperature + 243.5)) * _relative_humidity * 2.1674) / (273.15 + _temperature)
+    return (6.112 * math.exp((17.67 * _temperature) / (_temperature + 243.5)) * _relative_humidity * 2.1674) / (273.15 + _temperature)
 
 
 def get_readings(_sensor_connection):
